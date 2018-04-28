@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Guest List";
+}
+@model wedding.Models.WeddingPlanner
+<nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                     <li><a asp-area="" asp-controller="Home" asp-action="Dashboard">Wedding Planner</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Dashboard">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="logout">Log Off</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="row">
+  <div class="col-sm-5 col-md-6 mt-5">
+@{
+            @foreach (var weddings in @ViewBag.Results)
+            {
+                <h1>@weddings.WedderOne and @weddings.WedderTwo Wedding</h1>
+                <h3>Date: @weddings.Date.ToString("MMMM dd, yyyy")</h3>
+                <h3>Location: @weddings.WedAddress</h3>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                        <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyC0Yhu7TBI2mRlV2Qe3y1OM53naW6zia3Q&q=@weddings.WedAddress" allowfullscreen>
+                        </iframe> 
+                        </div>
+                    </div>
+                </div>
+                 @foreach (var user in @weddings.guests)
+                {
+                    <p><h3>Guests</h3></p>
+                    <p><h4>@user.User.FirstName @user.User.LastName</h4></p>
+                } 
+            }
+} 
+  </div>
+  
+
+
+
+

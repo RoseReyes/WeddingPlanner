@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Plan Your Wedding";
+}
+@model wedding.Models.PlanWeddingViewModel
+
+<div class="row">
+    <a href="Dashboard">Dashboard</a>
+  <div class="col-sm-5 col-md-6">
+      <form action="CreateWedding" method="post">
+         <h1>Plan Your Wedding</h1>
+        <div class="form-group mt-5">
+            <label asp-for="WedderOne"></label>
+            <input type="text" class="form-control" asp-for="WedderOne">
+            <span  class="text-danger" asp-validation-for="WedderOne"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="WedderTwo"></label>
+            <input type="text" class="form-control" asp-for="WedderTwo">
+            <span class="text-danger" asp-validation-for="WedderTwo"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Date"></label>
+            <input type="date" class="form-control" asp-for="Date">
+            <span class="text-danger" asp-validation-for="Date"></span>
+            <p class="text-danger sm">@TempData["error"]</p>
+        </div>
+        <div class="form-group">
+            <label asp-for="WedAddress"></label>
+            <input type="text" class="form-control" asp-for="WedAddress">
+            <span class="text-danger" asp-validation-for="WedAddress"></span>
+        </div>
+        <div class="col"> 
+            <button type="submit" class="btn btn-success pull-right">Create</button>
+        </div>
+    </form> 
+  </div>

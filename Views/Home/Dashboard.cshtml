@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+@model wedding.Models.WeddingPlanner
+<nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                     <li><a asp-area="" asp-controller="Home" asp-action="Home">Wedding Planner</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Dashboard">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="logout">Log Off</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<h1>Welcome to the Wedding Planner</h1> 
+<div class="row">
+  <div class="col-sm-5 col-md-6 mt-5">
+      <form action="JoinWed" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Wedding</th>
+                <th scope="col">Date</th>
+                <th scope="col">Guest</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ var Weddings = @ViewBag.Results;
+                    foreach(var wedding in Weddings)
+                    {   var check = false;
+                        
+                        foreach(var guest in wedding.guests)
+                        {
+                            if (guest.User != null &&
+                                guest.User.UserId == @ViewBag.Creator)
+                            {
+                                check = true;
+                            }
+                        }
+                        <tr>
+                            <td><a href="Guest/@wedding.WeddingPlannerId">@wedding.WedderOne & @wedding.WedderTwo</a></td>
+                            <td>@wedding.Date.ToString("MMM dd, yyyy")</td>
+                            <td>@wedding.guests.Count</td>
+                            
+                            @if(@wedding.user.UserId == @ViewBag.Creator)
+                            {
+                                <td>
+                                    <form action="delete" method="POST">
+                                        <input type="hidden" name="weddingid" value=@wedding.WeddingPlannerId>
+                                        <button class="btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            }
+                            else 
+                            {
+                                if(check)
+                                {
+                                    <td>
+                                        <form action="unrsvp" method="POST">
+                                            <input type="hidden" name="weddingid" value=@wedding.WeddingPlannerId>
+                                            <button class="btn-warning">Un-RSVP</button>
+                                        </form>
+                                    </td>
+                                }
+                                else 
+                                {
+                                    <td>
+                                        <form action="rsvp" method="POST">
+                                            <input type="hidden" name="weddingid" value=@wedding.WeddingPlannerId>
+                                            <button class="btn-success">RSVP</button>
+                                        </form>
+                                    </td>
+                                }
+                            } 
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="col-sm">
+            <a class="btn btn-primary btn-sm float-right" href="RedirectWedding" role="button">New Wedding</a>
+        </div>
+    </form> 
+  </div>
+
+
+

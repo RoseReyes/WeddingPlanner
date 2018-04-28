@@ -1,0 +1,7 @@
+
+                           
+                                    <input type="text" name="wedId" value="@weddings.WeddingPlannerId">
+                                    <input type="hidden" name="action" value="rsvp">
+                                    <form action="rsvp" method="post">
+                                    
+                                     </form>
